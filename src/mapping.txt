@@ -1,0 +1,569 @@
+{
+    "interchanges": (
+      $__TYPE__ := "LIST_CONTEXT_BLOCK";
+      $__CONTEXT__ := $$.DOC_850[0].interchanges;
+      $__CONTEXT__ = $omitField
+        ? $omitField
+        : $$
+          .DOC_850[0]
+          .interchanges
+          .{
+            "interchange_control_header_ISA": (
+              $__TYPE__ := "OBJECT_UNARY_CONTEXT_BLOCK";
+              $__CONTEXT__ := interchange_control_header_ISA;
+              $__CONTEXT__ = $omitField
+                ? $omitField
+                : $__CONTEXT__
+                  .{
+                    "authorization_information_qualifier_01": $reverse($split(authorization_information_qualifier_01, "_"))[0],
+                    "authorization_information_02": authorization_information_02,
+                    "security_information_qualifier_03": $reverse($split(authorization_information_qualifier_01, "_"))[0],
+                    "security_information_04": security_information_04,
+                    "interchange_id_qualifier_05": $reverse($split(interchange_id_qualifier_07, "_"))[0],
+                    "interchange_sender_id_06": interchange_receiver_id_08,
+                    "interchange_id_qualifier_07": $reverse($split(interchange_id_qualifier_05, "_"))[0],
+                    "interchange_receiver_id_08": interchange_sender_id_06,
+                    "interchange_date_09": $convertDateTime($now(), $dateTime.RFC3339Millis, $dateTime.$dateTime.EDIDate),
+                    "interchange_time_10": $convertDateTime($now(), $dateTime.RFC3339Millis, $dateTime.$dateTime.EDITime),
+                    "repetition_separator_11": repetition_separator_11,
+                    "interchange_control_version_number_12": interchange_control_version_number_12,
+                    "interchange_control_number_13": undefined,
+                    "acknowledgment_requested_14": $reverse($split(acknowledgment_requested_14, "_"))[0],
+                    "interchange_usage_indicator_15": $reverse($split(interchange_usage_indicator_15, "_"))[0],
+                    "component_element_separator_16": component_element_separator_16
+                  }
+            ),
+            "groups": (
+              $__TYPE__ := "LIST_CONTEXT_BLOCK";
+              $__CONTEXT__ := groups;
+              $__CONTEXT__ = $omitField
+                ? $omitField
+                : groups
+                  .{
+                    "functional_group_header_GS": (
+                      $__TYPE__ := "OBJECT_UNARY_CONTEXT_BLOCK";
+                      $__CONTEXT__ := functional_group_header_GS;
+                      $__CONTEXT__ = $omitField
+                        ? $omitField
+                        : $__CONTEXT__
+                          .{
+                            "functional_identifier_code_01": "IN",
+                            "application_senders_code_02": application_receivers_code_03,
+                            "application_receivers_code_03": application_senders_code_02,
+                            "date_04": $convertDateTime($now(), $dateTime.RFC3339Millis, $dateTime.$dateTime.$dateTime.EDIDateLong),
+                            "time_05": $convertDateTime($now(), $dateTime.RFC3339Millis, $dateTime.$dateTime.EDITime),
+                            "group_control_number_06": undefined,
+                            "responsible_agency_code_07": $reverse($split(responsible_agency_code_07, "_"))[0],
+                            "version_release_industry_identifier_code_08": version_release_industry_identifier_code_08
+                          }
+                    ),
+                    "transaction_sets": (
+                      $__TYPE__ := "LIST_CONTEXT_BLOCK";
+                      $__CONTEXT__ := transaction_sets;
+                      $__CONTEXT__ = $omitField
+                        ? $omitField
+                        : transaction_sets
+                          .{
+                            "heading": {
+                              "transaction_set_header_ST": {
+                                "transaction_set_identifier_code_01": "810",
+                                "transaction_set_control_number_02": undefined
+                              },
+                              "beginning_segment_for_invoice_BIG": {
+                                "date_01": $join(
+                                  [
+                                    $substring($convertDateTime($now(), $dateTime.RFC3339Millis, $dateTime.$dateTime.$dateTime.EDIDateLong), 0, 4),
+                                    $substring($convertDateTime($now(), $dateTime.RFC3339Millis, $dateTime.$dateTime.$dateTime.EDIDateLong), 4, 2),
+                                    $substring($convertDateTime($now(), $dateTime.RFC3339Millis, $dateTime.$dateTime.$dateTime.EDIDateLong), 6, 2)
+                                  ],
+                                  "-"
+                                ),
+                                "invoice_number_02": $join(["INV", $substring($string($random() * $millis()), 2, 7)]),
+                                "date_03": $join(
+                                  [
+                                    $substring(heading.beginning_segment_for_purchase_order_BEG.date_05, 0, 4),
+                                    $substring(heading.beginning_segment_for_purchase_order_BEG.date_05, 4, 2),
+                                    $substring(heading.beginning_segment_for_purchase_order_BEG.date_05, 6, 2)
+                                  ],
+                                  "-"
+                                ),
+                                "purchase_order_number_04": heading.beginning_segment_for_purchase_order_BEG.purchase_order_number_03
+                              },
+                              "reference_information_REF": (
+                                $__TYPE__ := "LIST_CONTEXT_BLOCK";
+                                $__CONTEXT__ := [
+                                  {
+                                    "qualifier": "DP",
+                                    "value": $
+                                      .heading
+                                      .reference_information_REF[reference_identification_qualifier_01.$split("_")[-1] = "DP"]
+                                      .reference_identification_02
+                                  },
+                                  {
+                                    "qualifier": "IA",
+                                    "value": $
+                                      .heading
+                                      .reference_information_REF[reference_identification_qualifier_01.$split("_")[-1] = "IA"]
+                                      .reference_identification_02
+                                  },
+                                  {
+                                    "qualifier": "MR",
+                                    "value": $
+                                      .heading
+                                      .reference_information_REF[reference_identification_qualifier_01.$split("_")[-1] = "MR"]
+                                      .reference_identification_02
+                                  }
+                                ];
+                                $__CONTEXT__ = $omitField
+                                  ? $omitField
+                                  : ([
+                                    {
+                                      "qualifier": "DP",
+                                      "value": $
+                                        .heading
+                                        .reference_information_REF[reference_identification_qualifier_01.$split("_")[-1] = "DP"]
+                                        .reference_identification_02
+                                    },
+                                    {
+                                      "qualifier": "IA",
+                                      "value": $
+                                        .heading
+                                        .reference_information_REF[reference_identification_qualifier_01.$split("_")[-1] = "IA"]
+                                        .reference_identification_02
+                                    },
+                                    {
+                                      "qualifier": "MR",
+                                      "value": $
+                                        .heading
+                                        .reference_information_REF[reference_identification_qualifier_01.$split("_")[-1] = "MR"]
+                                        .reference_identification_02
+                                    }
+                                  ])
+                                    .{ "reference_identification_qualifier_01": qualifier, "reference_identification_02": value }[]
+                              ),
+                              "party_identification_N1_loop": (
+                                $__TYPE__ := "LIST_CONTEXT_BLOCK";
+                                $__CONTEXT__ := heading.party_identification_N1_loop;
+                                $__CONTEXT__ = $omitField
+                                  ? $omitField
+                                  : heading
+                                    .party_identification_N1_loop
+                                    .{
+                                      "party_identification_N1": {
+                                        "entity_identifier_code_01": $reverse($split(party_identification_N1.entity_identifier_code_01, "_"))[0] = "BY"
+                                          ? "ST"
+                                          : $reverse($split(party_identification_N1.entity_identifier_code_01, "_"))[0],
+                                        "name_02": party_identification_N1.name_02,
+                                        "identification_code_qualifier_03": $reverse($split(
+                                          party_identification_N1.identification_code_qualifier_03,
+                                          "_"
+                                        ))[0],
+                                        "identification_code_04": party_identification_N1.identification_code_04
+                                      },
+                                      "party_location_N3": (
+                                        $__TYPE__ := "LIST_CONTEXT_BLOCK";
+                                        $__CONTEXT__ := party_location_N3;
+                                        $__CONTEXT__ = $omitField
+                                          ? $omitField
+                                          : party_location_N3
+                                            .{ "address_information_01": address_information_01, "address_information_02": address_information_02 }[]
+                                      ),
+                                      "geographic_location_N4": {
+                                        "city_name_01": geographic_location_N4[0].city_name_01,
+                                        "state_or_province_code_02": geographic_location_N4[0].state_or_province_code_02,
+                                        "postal_code_03": geographic_location_N4[0].postal_code_03,
+                                        "country_code_04": geographic_location_N4[0].country_code_04
+                                      }
+                                    }[]
+                              ),
+                              "terms_of_sale_deferred_terms_of_sale_ITD": (
+                                $__TYPE__ := "LIST_CONTEXT_BLOCK";
+                                $__CONTEXT__ := heading.terms_of_sale_deferred_terms_of_sale_ITD;
+                                $__CONTEXT__ = $omitField
+                                  ? $omitField
+                                  : heading
+                                    .terms_of_sale_deferred_terms_of_sale_ITD
+                                    .{
+                                      "terms_type_code_01": $reverse($split(terms_type_code_01, "_"))[0],
+                                      "terms_basis_date_code_02": $reverse($split(terms_basis_date_code_02, "_"))[0],
+                                      "terms_discount_percent_03": terms_discount_percent_03,
+                                      "terms_discount_days_due_05": terms_discount_days_due_05,
+                                      "terms_net_days_07": terms_net_days_07
+                                    }[]
+                              ),
+                              "date_time_reference_DTM": (
+                                $__TYPE__ := "LIST_CONTEXT_BLOCK";
+                                $__CONTEXT__ := $$
+                                  .DOC_856[0]
+                                  .interchanges[0]
+                                  .groups[0]
+                                  .transaction_sets[0]
+                                  .detail
+                                  .HL_loop_shipment[0]
+                                  .date_time_reference_DTM[date_time_qualifier_01.$split("_")[-1] = "011"];
+                                $__CONTEXT__ = $omitField
+                                  ? $omitField
+                                  : $$
+                                    .DOC_856[0]
+                                    .interchanges[0]
+                                    .groups[0]
+                                    .transaction_sets[0]
+                                    .detail
+                                    .HL_loop_shipment[0]
+                                    .date_time_reference_DTM[date_time_qualifier_01.$split("_")[-1] = "011"]
+                                    .{ "date_time_qualifier_01": date_time_qualifier_01.$split("_")[-1], "date_02": date_02 }[]
+                              ),
+                              "fob_related_instructions_FOB": (
+                                $__TYPE__ := "OBJECT_UNARY_CONTEXT_BLOCK";
+                                $__CONTEXT__ := $$
+                                  .DOC_856[0]
+                                  .interchanges[0]
+                                  .groups[0]
+                                  .transaction_sets[0]
+                                  .detail
+                                  .HL_loop_shipment[0]
+                                  .fob_related_instructions_FOB;
+                                $__CONTEXT__ = $omitField
+                                  ? $omitField
+                                  : $__CONTEXT__.{ "shipment_method_of_payment_01": shipment_method_of_payment_01.$split("_")[-1] }
+                              )
+                            },
+                            "detail": (
+                              $__TYPE__ := "OBJECT_UNARY_CONTEXT_BLOCK";
+                              $__CONTEXT__ := detail;
+                              $__CONTEXT__ = $omitField
+                                ? $omitField
+                                : $__CONTEXT__
+                                  .{
+                                    "baseline_item_data_invoice_IT1_loop": (
+                                      $__TYPE__ := "LIST_CONTEXT_BLOCK";
+                                      $__CONTEXT__ := (
+                                        $lineItems := $distinct($$
+                                          .DOC_856[0]
+                                          .interchanges[0]
+                                          .groups[0]
+                                          .transaction_sets[0]
+                                          .detail
+                                          .HL_loop_shipment[0]
+                                          .HL_loop_order[0]
+                                          .HL_loop_pack
+                                          .HL_loop_item
+                                          .item_identification_LIN
+                                          .product_service_id_03);
+                                        $lineItems2 := $distinct($$
+                                          .DOC_856[0]
+                                          .interchanges[0]
+                                          .groups[0]
+                                          .transaction_sets[0]
+                                          .detail
+                                          .HL_loop_shipment[0]
+                                          .HL_loop_order[0]
+                                          .HL_loop_pack
+                                          .HL_loop_item
+                                          .item_identification_LIN
+                                          .product_service_id_05);
+                                        $lineItems3 := $distinct($$
+                                          .DOC_856[0]
+                                          .interchanges[0]
+                                          .groups[0]
+                                          .transaction_sets[0]
+                                          .detail
+                                          .HL_loop_shipment[0]
+                                          .HL_loop_order[0]
+                                          .HL_loop_pack
+                                          .HL_loop_item
+                                          .item_identification_LIN
+                                          .product_service_id_07);
+                                        $lineItems4 := $distinct($$
+                                          .DOC_856[0]
+                                          .interchanges[0]
+                                          .groups[0]
+                                          .transaction_sets[0]
+                                          .detail
+                                          .HL_loop_shipment[0]
+                                          .HL_loop_order[0]
+                                          .HL_loop_pack
+                                          .HL_loop_item
+                                          .item_identification_LIN
+                                          .product_service_id_09);
+                                        $lineItems5 := $distinct($$
+                                          .DOC_856[0]
+                                          .interchanges[0]
+                                          .groups[0]
+                                          .transaction_sets[0]
+                                          .detail
+                                          .HL_loop_shipment[0]
+                                          .HL_loop_order[0]
+                                          .HL_loop_pack
+                                          .HL_loop_item
+                                          .item_identification_LIN
+                                          .product_service_id_11);
+                                        $filter(
+                                          $.baseline_item_data_PO1_loop,
+                                          function($v) {
+                                            $v.baseline_item_data_PO1.product_service_id_07
+                                              in [$lineItems, $lineItems2, $lineItems3, $lineItems4, $lineItems5]
+                                              or $v.baseline_item_data_PO1.product_service_id_09
+                                                in [$lineItems, $lineItems2, $lineItems3, $lineItems4, $lineItems5]
+                                              or $v.baseline_item_data_PO1.product_service_id_11
+                                                in [$lineItems, $lineItems2, $lineItems3, $lineItems4, $lineItems5]
+                                              or $v.baseline_item_data_PO1.product_service_id_13
+                                                in [$lineItems, $lineItems2, $lineItems3, $lineItems4, $lineItems5]
+                                              or $v.baseline_item_data_PO1.product_service_id_15
+                                                in [$lineItems, $lineItems2, $lineItems3, $lineItems4, $lineItems5]
+                                              or $v.baseline_item_data_PO1.product_service_id_23
+                                                in [$lineItems, $lineItems2, $lineItems3, $lineItems4, $lineItems5]
+                                          }
+                                        )
+                                      );
+                                      $__CONTEXT__ = $omitField
+                                        ? $omitField
+                                        : (
+                                          $lineItems := $distinct($$
+                                            .DOC_856[0]
+                                            .interchanges[0]
+                                            .groups[0]
+                                            .transaction_sets[0]
+                                            .detail
+                                            .HL_loop_shipment[0]
+                                            .HL_loop_order[0]
+                                            .HL_loop_pack
+                                            .HL_loop_item
+                                            .item_identification_LIN
+                                            .product_service_id_03);
+                                          $lineItems2 := $distinct($$
+                                            .DOC_856[0]
+                                            .interchanges[0]
+                                            .groups[0]
+                                            .transaction_sets[0]
+                                            .detail
+                                            .HL_loop_shipment[0]
+                                            .HL_loop_order[0]
+                                            .HL_loop_pack
+                                            .HL_loop_item
+                                            .item_identification_LIN
+                                            .product_service_id_05);
+                                          $lineItems3 := $distinct($$
+                                            .DOC_856[0]
+                                            .interchanges[0]
+                                            .groups[0]
+                                            .transaction_sets[0]
+                                            .detail
+                                            .HL_loop_shipment[0]
+                                            .HL_loop_order[0]
+                                            .HL_loop_pack
+                                            .HL_loop_item
+                                            .item_identification_LIN
+                                            .product_service_id_07);
+                                          $lineItems4 := $distinct($$
+                                            .DOC_856[0]
+                                            .interchanges[0]
+                                            .groups[0]
+                                            .transaction_sets[0]
+                                            .detail
+                                            .HL_loop_shipment[0]
+                                            .HL_loop_order[0]
+                                            .HL_loop_pack
+                                            .HL_loop_item
+                                            .item_identification_LIN
+                                            .product_service_id_09);
+                                          $lineItems5 := $distinct($$
+                                            .DOC_856[0]
+                                            .interchanges[0]
+                                            .groups[0]
+                                            .transaction_sets[0]
+                                            .detail
+                                            .HL_loop_shipment[0]
+                                            .HL_loop_order[0]
+                                            .HL_loop_pack
+                                            .HL_loop_item
+                                            .item_identification_LIN
+                                            .product_service_id_11);
+                                          $filter(
+                                            $.baseline_item_data_PO1_loop,
+                                            function($v) {
+                                              $v.baseline_item_data_PO1.product_service_id_07
+                                                in [$lineItems, $lineItems2, $lineItems3, $lineItems4, $lineItems5]
+                                                or $v.baseline_item_data_PO1.product_service_id_09
+                                                  in [$lineItems, $lineItems2, $lineItems3, $lineItems4, $lineItems5]
+                                                or $v.baseline_item_data_PO1.product_service_id_11
+                                                  in [$lineItems, $lineItems2, $lineItems3, $lineItems4, $lineItems5]
+                                                or $v.baseline_item_data_PO1.product_service_id_13
+                                                  in [$lineItems, $lineItems2, $lineItems3, $lineItems4, $lineItems5]
+                                                or $v.baseline_item_data_PO1.product_service_id_15
+                                                  in [$lineItems, $lineItems2, $lineItems3, $lineItems4, $lineItems5]
+                                                or $v.baseline_item_data_PO1.product_service_id_23
+                                                  in [$lineItems, $lineItems2, $lineItems3, $lineItems4, $lineItems5]
+                                            }
+                                          )
+                                        )
+                                          .{
+                                            "baseline_item_data_invoice_IT1": {
+                                              "quantity_invoiced_02": (
+                                                $currentItemId := $.baseline_item_data_PO1.product_service_id_07;
+                                                $currentItemId2 := $.baseline_item_data_PO1.product_service_id_09;
+                                                $currentItemId3 := $.baseline_item_data_PO1.product_service_id_11;
+                                                $currentItemId4 := $.baseline_item_data_PO1.product_service_id_13;
+                                                $currentItemId5 := $.baseline_item_data_PO1.product_service_id_15;
+                                                $filter(
+                                                  $$
+                                                    .DOC_856[0]
+                                                    .interchanges[0]
+                                                    .groups[0]
+                                                    .transaction_sets[0]
+                                                    .detail
+                                                    .HL_loop_shipment[0]
+                                                    .HL_loop_order
+                                                    .HL_loop_pack
+                                                    .HL_loop_item,
+                                                  function($v) {
+                                                    $v.item_identification_LIN.product_service_id_03
+                                                      in [$currentItemId, $currentItemId2, $currentItemId3, $currentItemId4, $currentItemId5]
+                                                      or $v.item_identification_LIN.product_service_id_05
+                                                        in [$currentItemId, $currentItemId2, $currentItemId3, $currentItemId4, $currentItemId5]
+                                                      or $v.item_identification_LIN.product_service_id_07
+                                                        in [$currentItemId, $currentItemId2, $currentItemId3, $currentItemId4, $currentItemId5]
+                                                      or $v.item_identification_LIN.product_service_id_09
+                                                        in [$currentItemId, $currentItemId2, $currentItemId3, $currentItemId4, $currentItemId5]
+                                                      or $v.item_identification_LIN.product_service_id_11
+                                                        in [$currentItemId, $currentItemId2, $currentItemId3, $currentItemId4, $currentItemId5]
+                                                      or $v.item_identification_LIN.product_service_id_23
+                                                        in [$currentItemId, $currentItemId2, $currentItemId3, $currentItemId4, $currentItemId5]
+                                                  }
+                                                )
+                                                  ~> function($v) {
+                                                    $map($v, function($v1) { $number($v1.item_detail_shipment_SN1.number_of_units_shipped_02) }) ~> $sum
+                                                      ~> $string()
+                                                  }
+                                              ),
+                                              "unit_or_basis_for_measurement_code_03": baseline_item_data_PO1
+                                                .unit_or_basis_for_measurement_code_03
+                                                .$split("_")[-1],
+                                              "unit_price_04": baseline_item_data_PO1.unit_price_04,
+                                              "product_service_id_qualifier_06": $reverse($split(
+                                                baseline_item_data_PO1.product_service_id_qualifier_06,
+                                                "_"
+                                              ))[0],
+                                              "product_service_id_07": baseline_item_data_PO1.product_service_id_07,
+                                              "product_service_id_qualifier_08": $reverse($split(
+                                                baseline_item_data_PO1.product_service_id_qualifier_08,
+                                                "_"
+                                              ))[0],
+                                              "product_service_id_09": baseline_item_data_PO1.product_service_id_09,
+                                              "product_service_id_qualifier_16": $reverse($split(
+                                                baseline_item_data_PO1.product_service_id_qualifier_22,
+                                                "_"
+                                              ))[0],
+                                              "product_service_id_17": baseline_item_data_PO1.product_service_id_23,
+                                              "product_service_id_qualifier_22": $reverse($split(
+                                                baseline_item_data_PO1.product_service_id_qualifier_10,
+                                                "_"
+                                              ))[0],
+                                              "product_service_id_23": baseline_item_data_PO1.product_service_id_11
+                                            },
+                                            "item_physical_details_PO4": (
+                                              $__TYPE__ := "OBJECT_UNARY_CONTEXT_BLOCK";
+                                              $__CONTEXT__ := item_physical_details_PO4;
+                                              $__CONTEXT__ = $omitField
+                                                ? $omitField
+                                                : $__CONTEXT__.{ "pack_01": pack_01, "inner_pack_14": inner_pack_14 }
+                                            )
+                                          }[]
+                                    )
+                                  }
+                            ),
+                            "summary": {
+                              "total_monetary_value_summary_TDS": {
+                                "amount_01": (
+                                  $allowances := $filter(
+                                    heading.service_promotion_allowance_or_charge_information_SAC_loop,
+                                    function($v) {
+                                      $reverse($split($v.service_promotion_allowance_or_charge_information_SAC.allowance_or_charge_indicator_01, "_"))[
+                                        0
+                                      ]
+                                        = "A"
+                                    }
+                                  );
+                                  $total_allowance_amount := $reduce(
+                                    $allowances,
+                                    function($acc, $v) { $acc + $number($v.service_promotion_allowance_or_charge_information_SAC.amount_05) },
+                                    0
+                                  );
+                                  $count($allowances) > 0
+                                    ? $round(
+                                      (($number(summary.transaction_totals_CTT_loop[0].monetary_amount_information_AMT.monetary_amount_02))
+                                        - $total_allowance_amount),
+                                      2
+                                    )
+                                    : ($val := ($number(summary.transaction_totals_CTT_loop[0].monetary_amount_information_AMT.monetary_amount_02)))
+                                )
+                              },
+                              "service_promotion_allowance_or_charge_information_SAC_loop": (
+                                $__TYPE__ := "LIST_CONTEXT_BLOCK";
+                                $__CONTEXT__ := heading.service_promotion_allowance_or_charge_information_SAC_loop;
+                                $__CONTEXT__ = $omitField
+                                  ? $omitField
+                                  : heading
+                                    .service_promotion_allowance_or_charge_information_SAC_loop
+                                    .{
+                                      "service_promotion_allowance_or_charge_information_SAC": {
+                                        "allowance_or_charge_indicator_01": $reverse($split(
+                                          service_promotion_allowance_or_charge_information_SAC.allowance_or_charge_indicator_01,
+                                          "_"
+                                        ))[0],
+                                        "service_promotion_allowance_or_charge_code_02": $reverse($split(
+                                          service_promotion_allowance_or_charge_information_SAC.service_promotion_allowance_or_charge_code_02,
+                                          "_"
+                                        ))[0],
+                                        "amount_05": $number(service_promotion_allowance_or_charge_information_SAC.amount_05),
+                                        "allowance_charge_percent_qualifier_06": $reverse($split(
+                                          service_promotion_allowance_or_charge_information_SAC.allowance_charge_percent_qualifier_06,
+                                          "_"
+                                        ))[0],
+                                        "percent_decimal_format_07": service_promotion_allowance_or_charge_information_SAC.percent_decimal_format_07,
+                                        "allowance_or_charge_method_of_handling_code_12": $reverse($split(
+                                          service_promotion_allowance_or_charge_information_SAC.allowance_or_charge_method_of_handling_code_12,
+                                          "_"
+                                        ))[0]
+                                      }
+                                    }[]
+                              ),
+                              "invoice_shipment_summary_ISS_loop": [
+                                {
+                                  "invoice_shipment_summary_ISS": {
+                                    "number_of_units_shipped_01": undefined,
+                                    "unit_or_basis_for_measurement_code_02": undefined
+                                  }
+                                }
+                              ],
+                              "transaction_totals_CTT": { "number_of_line_items_01": undefined },
+                              "transaction_set_trailer_SE": {
+                                "number_of_included_segments_01": undefined,
+                                "transaction_set_control_number_02": undefined
+                              }
+                            },
+                            "set": undefined
+                          }[]
+                    ),
+                    "functional_group_trailer_GE": {
+                      "number_of_transaction_sets_included_01": functional_group_trailer_GE.number_of_transaction_sets_included_01,
+                      "group_control_number_02": undefined
+                    },
+                    "release": $.release
+                  }[]
+            ),
+            "interchange_control_trailer_IEA": {
+              "number_of_included_functional_groups_01": interchange_control_trailer_IEA.number_of_included_functional_groups_01,
+              "interchange_control_number_02": undefined
+            },
+            "delimiters": (
+              $__TYPE__ := "OBJECT_UNARY_CONTEXT_BLOCK";
+              $__CONTEXT__ := $.delimiters;
+              $__CONTEXT__ = $omitField
+                ? $omitField
+                : $__CONTEXT__.{ "element": element, "segment": segment, "sub_element": sub_element, "repetition": repetition }
+            )
+          }[]
+    ),
+    "__version": $$.DOC_850[0].__version
+  }
